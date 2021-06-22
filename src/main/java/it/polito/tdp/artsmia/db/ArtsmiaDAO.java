@@ -93,7 +93,8 @@ public class ArtsmiaDAO {
 				"and au1.object_id = eo1.object_id and au2.object_id = eo2.object_id " + 
 				"and eo1.exhibition_id = eo2.exhibition_id " + 
 				"and a1.artist_id > a2.artist_id " + 
-				"GROUP BY a1.artist_id, a2.artist_id";
+				"GROUP BY a1.artist_id, a2.artist_id ";
+		
 		List<Adiacenza> adiacenze = new ArrayList<Adiacenza>();
 		Connection conn = DBConnect.getConnection();
 		try {

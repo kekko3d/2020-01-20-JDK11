@@ -54,7 +54,6 @@ public class Model {
 				Graphs.addEdgeWithVertices(this.grafo, a.getA1(), a.getA2(), a.getPeso());
 			}
 		}
-		
 		System.out.println("Grafo creato!");
 		System.out.println("# VERTICI: " + this.grafo.vertexSet().size());
 		System.out.println("# ARCHI: " + this.grafo.edgeSet().size());
