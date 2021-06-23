@@ -69,9 +69,11 @@ public class ArtsmiaDAO {
 	
 public List<Artist> listV(String ruolo) {
 		String sql = "SELECT DISTINCT(art.`artist_id`) as id, art.`name` as name "
-				+ "FROM artists as art, authorship as aut, exhibitions ex "
+				+ "FROM artists as art, authorship as aut "
 				+ "WHERE art.`artist_id` = aut.`artist_id` "
 				+ "AND aut.`role` = ? ";
+//		String sql = "select a.artist_id as id, a. from artists a.name as name, authorship au " +
+//				"where a.artist_id = au.artist_id and au.role = ?";
 		List<Artist> result = new ArrayList<>();
 		Connection conn = DBConnect.getConnection();
 
@@ -99,10 +101,11 @@ public List <Adiacenza> getAdiacenze() {
 	String sql = "SELECT aut1.`artist_id` as id1, aut2.`artist_id` as id2, COUNT(DISTINCT(ex1.`exhibition_id`)) as peso "
 			+ "FROM authorship as aut1, authorship as aut2, objects as obj1, objects as obj2, exhibition_objects as ex1, exhibition_objects as ex2 "
 			+ "WHERE aut1.`artist_id` > aut2.`artist_id` "
-			+ "AND obj1.`object_id` = aut1.`object_id` AND obj1.`object_id` =  ex1.`object_id` "
-			+ "AND obj2.`object_id` = aut2.`object_id` AND obj2.`object_id` =  ex2.`object_id` "
+			+ "AND aut1.`object_id` =  obj1.`object_id` "
+			+ "AND aut2.`object_id` =  obj2.`object_id` "
+			+ "AND obj1.`object_id` = ex1.`object_id` "
+			+ "AND obj2.`object_id` = ex2.`object_id` "
 			+ "AND ex1.`exhibition_id` = ex2.`exhibition_id` "
-			+ "AND obj1.`object_id` > obj2.`object_id` "
 			+ "GROUP BY aut1.`artist_id`, aut2.`artist_id` ";
 	
 	try {

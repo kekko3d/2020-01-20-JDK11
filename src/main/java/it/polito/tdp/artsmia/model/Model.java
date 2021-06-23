@@ -30,6 +30,8 @@ public class Model {
 		grafo = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
 		dao = new ArtsmiaDAO();
 		DefaultWeightedEdge b;
+		DefaultWeightedEdge c;
+
 		idMap = new HashMap<Integer, Artist> () ;
 
 		for(Artist a : dao.listV(ruolo)) {
@@ -41,15 +43,17 @@ public class Model {
 		listaAdiacenze = new LinkedList <Adiacenza>();
 		for(Adiacenza e : dao.getAdiacenze()) {
 			if(idMap.containsKey(e.getId1())
-					&& idMap.containsKey(e.getId2())){
+					&& idMap.containsKey(e.getId2())
+					&& !e.getId2().equals(e.getId1())){
 				
 				//questo if e il seguente servono a non aggiungere lo stesso arco più volte
-				if(this.grafo.containsVertex(idMap.get(e.getId1())) ||
+				if(this.grafo.containsVertex(idMap.get(e.getId1())) &&
 						this.grafo.containsVertex(idMap.get(e.getId2()))) {
 
-
+					c = this.grafo.getEdge(idMap.get(e.getId2()), idMap.get(e.getId1()));
 					b = this.grafo.getEdge(idMap.get(e.getId1()), idMap.get(e.getId2()));
-					if(b == null) {
+
+					if(b == null && c == null) {
 						Graphs.addEdgeWithVertices(this.grafo, idMap.get(e.getId1()), idMap.get(e.getId2()), e.getPeso());
 						listaAdiacenze.add(e);
 
@@ -58,7 +62,8 @@ public class Model {
 			}
 		}
 		System.out.println(grafo.vertexSet().size());
-		System.out.println(grafo.edgeSet().size());
+		System.out.println(listaAdiacenze.size());
+
 
 	}
 
