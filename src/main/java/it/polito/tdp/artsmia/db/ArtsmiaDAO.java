@@ -132,5 +132,28 @@ public List <Adiacenza> getAdiacenze() {
 		return null ;
 	}		
 }
+
+public List<String> getRuoli() {
+	String sql = "SELECT DISTINCT(role) "
+			+ "FROM authorship ";
+	List<String> result = new ArrayList<>();
+	Connection conn = DBConnect.getConnection();
+
+	try {
+		PreparedStatement st = conn.prepareStatement(sql);
+		ResultSet res = st.executeQuery();
+		while (res.next()) {
+
+			result.add(res.getString("role"));
+		}
+		
+		conn.close();
+		return result;
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
 	
 }

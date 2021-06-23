@@ -132,6 +132,22 @@ public class Model {
 			}
 		}
 	}
-	
+
+	public Object vertici() {
+		// TODO Auto-generated method stub
+		return this.grafo.vertexSet().size();
+	}
+
+	public Object archi() {
+		// TODO Auto-generated method stub
+		return this.grafo.edgeSet().size();
+	}
+
+	public List<String> getRuoli() {
+		dao = new ArtsmiaDAO();
+		return this.dao.getRuoli();
+	}
+
+
 
 }
